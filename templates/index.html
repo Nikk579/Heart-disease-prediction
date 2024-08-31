@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap"
+        rel="stylesheet">
+    <title>Heart Disease Prediction</title>
+</head>
+
+<body>
+    <div claas="container">
+        <div class="mainSection">
+            <img src="/static/heart.png" alt="Heart img">
+            <h2>Heart Disease Prediction</h2>
+        </div>
+        <form action="{{ url_for('predict') }}" method="POST">
+            <label>Age:</label><input type="number" name="age"
+                value="{{ input_data['Age'] if input_data.get('Age') else '' }}"><br>
+
+            <label>Sex:</label>
+            <select name="sex">
+                <option value="F" {% if input_data.get('Sex')=='0' %}selected{% endif %}>Female</option>
+                <option value="M" {% if input_data.get('Sex')=='1' %}selected{% endif %}>Male</option>
+            </select><br>
+
+            <label>Chest Pain Type:</label>
+            <select name="chest_pain_type">
+                <option value="ATA" {% if input_data.get('ChestPainType')=='1' %}selected{% endif %}>ATA (Typical
+                    Angina)</option>
+                <option value="NAP" {% if input_data.get('ChestPainType')=='2' %}selected{% endif %}>NAP (Non-Anginal
+                    Pain)</option>
+                <option value="ASY" {% if input_data.get('ChestPainType')=='0' %}selected{% endif %}>ASY (Asymptomatic)
+                </option>
+                <option value="TA" {% if input_data.get('ChestPainType')=='3' %}selected{% endif %}>TA (Atypical Angina)
+                </option>
+            </select><br>
+
+            <label>Resting Blood Pressure:</label><input type="number" name="resting_bp"
+                value="{{ input_data['RestingBP'] if input_data.get('RestingBP') else '' }}"><br>
+            <label>Cholesterol:</label><input type="number" name="cholesterol"
+                value="{{ input_data['Cholesterol'] if input_data.get('Cholesterol') else '' }}"><br>
+            <label>Fasting Blood Sugar (0/1):</label><input type="number" name="fasting_bs"
+                value="{{ input_data['FastingBS'] if input_data.get('FastingBS') else '' }}"><br>
+
+            <label>Resting ECG:</label>
+            <select name="resting_ecg">
+                <option value="Normal" {% if input_data.get('RestingECG')=='1' %}selected{% endif %}>Normal</option>
+                <option value="ST" {% if input_data.get('RestingECG')=='2' %}selected{% endif %}>ST-T wave abnormality
+                </option>
+                <option value="LVH" {% if input_data.get('RestingECG')=='0' %}selected{% endif %}>Left ventricular
+                    hypertrophy</option>
+            </select><br>
+
+            <label>Max Heart Rate:</label><input type="number" name="max_hr"
+                value="{{ input_data['MaxHR'] if input_data.get('MaxHR') else '' }}"><br>
+
+            <label>Exercise Induced Angina:</label>
+            <select name="exercise_angina">
+                <option value="N" {% if input_data.get('ExerciseAngina')=='0' %}selected{% endif %}>No</option>
+                <option value="Y" {% if input_data.get('ExerciseAngina')=='1' %}selected{% endif %}>Yes</option>
+            </select><br>
+
+            <label>Oldpeak:</label><input type="number" step="0.1" name="oldpeak"
+                value="{{ input_data['Oldpeak'] if input_data.get('Oldpeak') else '' }}"><br>
+
+            <label>ST Slope:</label>
+            <select name="st_slope">
+                <option value="Up" {% if input_data.get('ST_Slope')=='2' %}selected{% endif %}>Up</option>
+                <option value="Flat" {% if input_data.get('ST_Slope')=='1' %}selected{% endif %}>Flat</option>
+                <option value="Down" {% if input_data.get('ST_Slope')=='0' %}selected{% endif %}>Down</option>
+            </select><br>
+
+            <button type="submit">Predict</button>
+        </form>
+
+        {% if errors %}
+        <div style="color: red;">
+            <ul>
+                {% for error in errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        {% if prediction_text %}
+        <div class="output {% if 'Negative' in prediction_text %}negative{% else %}positive{% endif %}">
+            <h3>{{ prediction_text }}</h3>
+        </div>
+        {% endif %}
+    </div>
+</body>
+
+</html>

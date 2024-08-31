@@ -1,0 +1,71 @@
+body {
+  font-family: "Nunito Sans", sans-serif;
+  background-image: linear-gradient(
+    85.2deg,
+    rgba(33, 3, 40, 1) 7.5%,
+    rgba(65, 5, 72, 1) 88.7%
+  );
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+img {
+  height: 75px;
+}
+.mainSection {
+  display: flex;
+  align-items: center;
+  background-color: #adff9b;
+  padding: 10px;
+  margin-top: 15px;
+  border-radius: 25px;
+}
+form {
+  background-color: #ffd6d6;
+  border-radius: 25px;
+  padding: 30px;
+  margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+input,
+select {
+  height: 30px;
+  border-radius: 7px;
+}
+label {
+  margin-bottom: 5px;
+  font-weight: 700;
+  font-size: large;
+}
+button {
+  padding: 10px 20px;
+  background-color: #00a1ff;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 70%;
+  align-self: center;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+.output {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #adff9b;
+  padding: 10px;
+  margin: 15px 0;
+  border-radius: 25px;
+}
+.output.negative {
+  background-color: rgb(147, 255, 147); /* Green for Negative */
+}
+
+.output.positive {
+  background-color: #ff7575;
+}
